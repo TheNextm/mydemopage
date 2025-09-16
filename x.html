@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Bree Serif", serif;
+      background: #f9f9fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 22px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 5px #c4b5fd;
+    }
+
+    .btn {
+      background: #8b5cf6;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #7c3aed;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+
+      color: red;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<center>
+  <h2>Molly Refer Script</h2>
+  
+  <input type="tel" id="mobile" placeholder="Enter mobile number">
+  <input type="text" id="referral" placeholder="Referral Code (optional)">
+
+  <button class="btn" id="sendOtpBtn">Send OTP</button>
+  <div id="otpBox" class="hidden">
+    <input type="tel" id="otpInput" placeholder="Enter OTP">
+    <button class="btn" id="verifyOtpBtn">Verify OTP</button>
+  </div>
+  <footer>
+     Coded by SV 
+  </footer>
+
+<script>
+$(document).ready(function(){
+  let generatedOTP = null;
+
+  // Send OTP
+  $("#sendOtpBtn").click(function(){
+    let mobile = $("#mobile").val().trim();
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+      Swal.fire("❌ Error", "Enter a valid 10-digit mobile number", "error");
+      return;
+    }
+
+    generatedOTP = Math.floor(1000 + Math.random() * 9000);
+    Swal.fire("📩 OTP Sent", "Demo OTP: " + generatedOTP, "success");
+       $("#otpBox").attr("placeholder", generatedOTP);
+// fill OTP in placeholder of input
+$("#otpBox").attr("placeholder", generatedOTP);
+    $("#otpBox").removeClass("hidden");
+  });
+
+  // Verify OTP
+  $("#verifyOtpBtn").click(function(){
+    let enteredOTP = $("#otpInput").val().trim();
+
+    if(enteredOTP == generatedOTP){
+      Swal.fire("✅ Success", "OTP Verified Successfully!", "success");
+    } else {
+      Swal.fire("❌ Invalid", "Wrong OTP entered!", "error");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
